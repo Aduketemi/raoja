@@ -1,0 +1,40 @@
+{% extends 'store/main.html' %}
+{%  load static %}
+{% block content %}
+    <div class="row my-4 mx-4">
+        {% for product in products %}
+        <div class="col-lg-4 my-4">
+            <img class="thumbnail" src="{{product.imageURL}}"/>
+            <div class="box-element product">
+                <h6><strong>{{product.name}}</strong></h6>
+                <hr>
+                <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary update-cart">Add to Cart</button>
+                <a class="btn btn-outline-success" href="#">View</a>
+                <h4 style="float: right;">#{{product.price | floatformat:2}}</h4>
+            </div>
+        </div>
+        {% endfor%}
+        <!-- <div class="col-lg-4">
+            <img class="thumbnail" src="{% static 'img/placeholder.jpg'%}"/>
+            <div class="box-element product">
+                <h6><strong>Product</strong></h6>
+                <hr>
+                <button class="btn btn-outline-secondary">Add to Cart</button>
+                <a class="btn btn-outline-success" href="#">View</a>
+                <h4 style="float: right;">#1,000</h4>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <img class="thumbnail" src="{% static 'img/placeholder.jpg'%}"/>
+            <div class="box-element product">
+                <h6><strong>Product</strong></h6>
+                <hr>
+                <button class="btn btn-outline-secondary">Add to Cart</button>
+                <a class="btn btn-outline-success" href="#">View</a>
+                <h4 style="float: right;">#1,000</h4>
+            </div>
+        </div> -->
+    </div>
+ 
+
+{% endblock %}

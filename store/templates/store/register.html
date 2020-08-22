@@ -1,0 +1,52 @@
+{% extends 'store/main.html' %}
+{%  load static %}
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="box-element" id="form-wrapper">
+            <form id="reg-form" method="POST" action="">
+                {% csrf_token %}
+                <div id="reg-info">
+                    <h3>Register</h3>
+                    <!-- <div class="form-field">
+                        <input required class="form-control" type="text" name="" placeholder="Name...">
+                    </div> -->
+                    <div class="form-field">
+                        {{customer_form.name.label_tag}}
+                        {{customer_form.name}}
+                    </div>
+                    <div class="form-field">
+                        {{form.username.errors}}
+                        <!-- {{form.username.label}} -->
+                        {{form.username.label_tag}}
+                        {{form.username}}
+                    </div>
+                    <div class="form-field">
+                        {{customer_form.email.label_tag}}
+                        {{customer_form.email}}
+                    </div>
+                    <div class="form-field">
+                        {{form.password1.errors}}
+                        <!-- {{form.password1.label}} -->
+                        {{form.password1.label_tag}}
+                        {{form.password1}}
+                    </div>
+                    <div class="form-field">
+                        {{form.password2.errors}}
+                        <!-- {{form.password2.label}} -->
+                        {{form.password2.label_tag}}
+                        {{form.password2}}
+                    </div>
+                </div>
+                
+                <hr>
+                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Create User">
+                <br>
+                    {{form.non_field_errors}}
+                    {{forms.errors}}
+                <p>Already have an account? <a href="{% url 'store:login'%}">Login</a></p>
+            </form>
+        </div>
+
+{% endblock %}

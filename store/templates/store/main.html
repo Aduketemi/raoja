@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{%  load static %}
+
+<html>
+<head>
+    <title>Raoja</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel='stylesheet' type='text/css' href="{% static 'css/main.css'%}">
+
+    <meta name='viewport' content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+    <script type="text/javascript">
+      var user = '{{request.user}}'
+
+      function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+      }
+      var csrftoken = getToken('csrftoken');
+
+      function getCookie(name){
+        var cookieArr = document.cookie.split(';')
+        for(var i = 0; i < cookieArr.length; i++){
+          var cookiePair = cookieArr[i].split('=');
+
+          if(name == cookiePair[0].trim()){
+            return decodeURIComponent(cookiePair[1]);
+          }
+        }
+        return null;
+      }
+
+      var cart = JSON.parse(getCookie('cart'));
+      
+      if(cart == undefined){
+        cart = {}
+        console.log('Cart was craeted!')
+        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+      }
+      console.log('cart:', cart)
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'store:store' %}">Raoja</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'store:store' %}">Store <span class="sr-only">(current)</span></a>
+            </li>
+            
+          </ul>
+            <!-- <div class="form-inline my-2 my-lg-0">
+                <a href="{% url 'store:register' %}" class="btn btn-success btn-sm my-2 my-sm-0">Create account</a>
+            </div> -->
+          
+            <div class="form-inline my-2 my-lg-0">
+              <span class="text-white mx-4">Hello {{request.user}}</span>
+            </div>
+            {% if not user.is_authenticated %}
+            <div class="form-inline my-2 my-lg-0">
+              <a href="{% url 'store:register' %}" class="btn btn-info btn-sm my-2 my-sm-0 mx-4 ">Register</a>
+          </div>
+            <div class="form-inline my-2 my-lg-0">
+                <a href="{% url 'store:login' %}" class="btn btn-success btn-sm my-2 my-sm-0 mx-4 ">Login</a>
+            </div>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <div class="form-inline my-2 my-lg-0">
+                <a href="{% url 'store:logout' %}" class="my-2 my-sm-0 text-white">Logout</a>
+              {% endif %}
+                <a href="{% url 'store:cart' %}"><img id="cart-icon" src="{% static 'img/cart.png' %}"/></a>
+                <p id="cart-total">{{cartItems}}</p>
+            
+          <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
+          </div>
+        </div>
+      </nav>
+    <div class="container">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends 'store/main.html' %}
+{%  load static %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-6">
+        <div class="box-element" id="form-wrapper">
+            <form id="reg-form" method="POST" action="">
+                {% csrf_token %}
+                <div id="reg-info">
+                    <h3>Login</h3>
+                    <!-- <div class="form-field">
+                        <input required class="form-control" type="text" name="" placeholder="Name...">
+                    </div> -->
+                    <div class="form-field">
+                        <input required class="form-control" type="text" name="username" placeholder="Username...">
+                    </div>
+                    <div class="form-field">
+                        <input required class="form-control" type="password" name="password" placeholder="Password...">
+                    </div>
+                </div>
+                
+                <hr>
+                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Login">
+                <br>
+                {% for message in messages %}
+                <p>{{message}}</p>
+                {% endfor %}
+                <p>Don't have an account? <a href="{% url 'store:register'%}">Sign Up</a></p>
+            </form>
+        </div>
+
+{% endblock %}
