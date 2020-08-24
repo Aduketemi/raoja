@@ -10,7 +10,7 @@
                 <hr>
                 <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary update-cart">Add to Cart</button>
                 <a class="btn btn-outline-success" href="#">View</a>
-                <h4 style="float: right;">#{{product.price | floatformat:2}}</h4>
+                <span><h4 style="float: right;">#{{product.price | floatformat:2}}</h4></span>
             </div>
         </div>
         {% endfor%}
